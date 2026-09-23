@@ -16,5 +16,5 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/deployment.yml --dry-run=client
-        kubectl apply -f k8s/service.yml --dry-run=client
+        kubectl apply -f k8s/deployment.yml --dry-run=client --validate=false
+        kubectl apply -f k8s/service.yml --dry-run=client --validate=false

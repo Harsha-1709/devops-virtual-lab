@@ -14,7 +14,15 @@ jobs:
     - name: Build Docker Image
       run: docker build -t devops-lab-app ./app
 
+    - name: Create Kubernetes Cluster
+      uses: helm/kind-action@v1.8.0
+
+    - name: Load Image into Cluster
+      run: kind load docker-image devops-lab-app:latest --name chart-testing
+
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/deployment.yml --dry-run=client --validate=false
-        kubectl apply -f k8s/service.yml --dry-run=client --validate=false
+        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f k8s/service.yml
+        kubectl get deployments
+        kubectl get services
